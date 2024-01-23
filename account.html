@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+    }
+
+    #sidebar {
+      height: 100%;
+      width: 250px;
+      position: fixed;
+      top: 0;
+      left: 0;
+      background-color: #111;
+      padding-top: 20px;
+      padding-right: 10px;
+    }
+
+    #sidebar a {
+      padding: 5px 25px;
+      text-decoration: none;
+      font-size: 18px;
+      color: #818181;
+      display: block;
+      border-bottom: 2px solid #333; 
+    }
+
+    #sidebar a:hover {
+      color: #f1f1f1;
+    }
+
+    #content {
+      margin-left: 250px;
+      padding: 16px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      border: 3px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    .create-account-btn {
+      display: block;
+      margin: 20px auto; 
+      padding: 10px 20px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      background-color: #148;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #add-data-form {
+      display: none;
+    }
+    #login-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+    h1
+    {
+      padding: 10px 15px 10px 16px;
+      color: #fff;
+      border-bottom-style:normal;
+      text-align: right;
+      border-bottom: 4px solid #343;
+      background-color: silver;
+      cursor: pointer;
+    }
+    
+    h4    
+    {
+      padding: 10px 15px 10px 16px;
+      color: #fff;
+      border-bottom-style:normal;
+      text-align: right;
+    }
+    #login-section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      border-bottom: 1px solid #333;
+    }
+
+    #user-photo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    #user-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    #user-info {
+      margin-left: 10px;
+      color: #fff;
+    }
+
+    #user-info h4 {
+      margin: 0;
+    }
+
+    
+    #content-navbar {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 40px;
+      background-color: #333;
+      position: fixed; 
+    }
+
+    #content-navbar a {
+      font-size: 24px;
+      padding-right: 10px;
+      color: white; 
+      text-decoration: none;
+    }
+
+    #content-navbar a:hover {
+      color: #4CAF50;
+    }
+    #login-sign {
+      display: flex;
+      align-items: center;
+    }
+
+    #login-sign a {
+      margin-left: 15px;
+      margin-right: 40px;
+      font-size: 18px;
+      color: #333;
+      text-decoration: none;
+    }
+
+    #login-sign a:hover {
+      color: #4CAF50;
+    }
+
+    .sub-options {
+      display: none;
+      margin-left: 5px;
+      font-size: 10px;
+      color: #333;
+    }
+
+    #login-sign:hover .sub-options {
+      display: flex;
+      flex-direction: unset;
+      position: fixed;
+      background-color: #111;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+      z-index: 1;
+    }
+
+    #login-sign:hover .sub-options a {
+      padding: 3px;
+    }
+    #feedback-form {
+      display: none;
+      padding: 20px;
+      background-color: #fff;
+      border-radius: 5px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      margin-top: 20px;
+    }
+
+    #feedback-form label {
+      display: block;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    #feedback-form textarea {
+      width: 70%;
+      height: 100px;
+      resize: none;
+    }
+
+    #feedback-form button {
+      display: block;
+      margin-top: 10px;
+      padding: 10px 20px;
+      font-size: 16px;
+      text-align: center;
+      text-decoration: none;
+      background-color: #111;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #search-tab {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 20px;
+    }
+
+    #search-input {
+      padding: 8px;
+      margin-right: 10px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    #search-btn {
+      padding: 8px 20px;
+      font-size: 16px;
+      background-color: #456;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    #toggle-btn {
+      position: absolute;
+      top: 10px;
+      left: 250px;
+      font-size: 20px;
+      color: white;
+      background-color: #456;
+      border: none;
+      border-radius: 5px;
+      padding: 10px;
+      cursor: pointer;
+    }
+    h4 {
+      font-size: 15px; 
+      color: #fff;
+      border-bottom-style: none;
+      text-align: left;
+      cursor: pointer;
+    }
+    #user-logo {
+      width: 60px;
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    #sidebar h1 {
+      display: flex;
+      align-items: center;
+      color: #fff;
+      padding: 10px 10px 10px 16px;
+      border-bottom-style: normal;
+      text-align: left;
+      font-size: 20px;
+
+    }
+
+
+  </style>
+</head>
+<body>
+
+  <button id="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+  <div id="sidebar">
+    <h1>
+      <img id="user-logo" src="https://e7.pngegg.com/pngimages/525/581/png-clipart-car-lamborghini-urus-volkswagen-lamborghini-huracan-car-car-computer-wallpaper-thumbnail.png" alt="Logo">
+      CRM Portal
+    </h1>
+    <div id="login-section">
+      <div id="user-photo">
+        <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAkGBwgHBgkIBwgKCgkLDRYPDQwMDRsUFRAWIB0iIiAdHx8kKDQsJCYxJx8fLT0tMTU3Ojo6Iys/RD84QzQ5OjcBCgoKDQwNGg8PGjclHyU3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3Nzc3N//AABEIAJQAlwMBIgACEQEDEQH/xAAcAAABBQEBAQAAAAAAAAAAAAADAAQFBgcCAQj/xAA+EAABAwMCBAMEBwcCBwAAAAABAAIDBAUREiEGEzFBIlFhBzJxgRQVI0JikaEzkrHB0eHwFvEkQ1JTY4LS/8QAGgEAAwEBAQEAAAAAAAAAAAAAAgMEAQUGAP/EACkRAAIDAAEEAQMDBQAAAAAAAAABAgMRIQQSMUEiExRRBUJhMlJxgZH/2gAMAwEAAhEDEQA/AMiwkGp/PFRR5DJnOPlhNA0uOGtKKM1JajcOQESJuXLpsEnZpRI4ntdlzCtbQHo8cNJ6IseHdgvXxlwyAvGRSZ6JTaa8mLlBtHkAkGeaIzLRgrxzkrkZ24jxre6IWkjohtPiCccwA47Jc+70fRiew0+puVy+LG4wjRPGCBtlFZCDv1CV3tPk+4S0aNacLtrM9DlOJWsDSBshxsBPhO6PvPoy3kJEC0hHnZrYMBdw05cPFsnQbGxuHJM56+A3YvBGcjT1T6ktwxrm3z2TmmDZpgAwaRvlSGjOAFPbfJfEq6aru+TGLoANm7JJ/wAlo97dJIVpeqTNa2Ll1cjR0yuWOc3oU6uw/wCMIHkmuF6Gt7BacZrgcMleADqzlHEzh/smjNkdhB6oJJfgXiYZsn4URrs9kJgCL22S2xbXOHXVD5Zzko0YLgiOZhBKWPBlnGDYNXulH0bL0ABZ3gJg4wSU+je5gGkAriKNrh0RNJZ8EqTUje/0PaeBtQzVIwNC8bRxCUGLdoQGVZ0csbN805pm4Ic0lLm2lwCoSXLDyRlo8IQ2xF27+qtXD1iFzdzqgkU7dturj5BXGmtFBTM0RUcIHmW5P5lRq5pZhXTQ2tZmFDG1rn464Txoxkq63LhykqAZKaNsE+MAt2a74j+aqE0T4ZHRyNLXNOHA+aVOXc9On08VGODUuIKSI5nkks0swzSrfzaqR3rhCcF43c5XbgvTxWcHn2vidtHhXbAvBs1dNS2/JOvAZpyjMTYHCPGckJLNzWh0zAGUm5kd6L2NmoYRWN5YSrHjGXrEhFoaFwGZJJRWgyOAAJJOAB3VqnbbeDqWGSvp21d4kbrbC85jhB6ZHcoV+AK4N+CrxDAXrw5x04U1Qcfvr5fol+oKSoo5Tg8uIMezPcFSLuFaqeoc+2QyVFIcOjeB2IB/shsTr5YUqnHkrcFMMDZSUMIa0bKfh4NvIyTQyADzI3QqqzV1KdM9NJGfxBSWzlvgWtk+S5cMRtZY6XSBu3PzypVVjhG4tEH1fO7TI05jztkHfCtABSEdWLWcHJConFT2RXl7dhqY1xx5q8VMsdPC6WZ4axu5JWZXmodX101QRjUfCPIdluLeQbLfppYeEtd7pC9Ub4gcZKSx1jV1vHgoYYG43yT1XpHRct97KI7ovSckH7TsbhdNGOq8jRUnueinDEcdEaD3kPCLAPEsZkPJI0x0lO+U2ZvhxlM2e6UqeZ0bwR0UlsHLlFNn4ZL8PU2q/wBvje0OaahmQehAOVE8dVklbxHWySHOZSB8Bspemmw+KWLaRjg5pHYhOLhwrUcR8RMlo3COjqBzZ5z7sA+/k+fkhos+eSMqSSaOPZtwSL+51xuDnMt8TtI07GVw6j4Dutsp5aehpWQUkbY4owGtY3sFk154juVJQspuGGsorPSR4h3ZzpmDrKWnfSdznG/VXKxXOS4cO0FbNjmzRBz8dC7of4K9zejHX8dZaPrN48kvrFsnhnY1zfIjqqDxnxObHRRvj0unkdhrXeQ6lQfDftGFXVR090jjax5wJozgA+uU5Q1cksv4LvxFw9Sl/wBZQTcqAZdK0DcH0VWd7SqS3O5LYXVDG4GZH7rQIwJYHQyYdG9uCOxCwn2icPyWS6OLQRBIdUZA2I/L/MKb7OtPuQVdnbwaRSX2zcaYghqJKOtwdEMjvA84UBcY5KSeSnlZpkYcOBCymlrpaeZr43EOa7LSCtvvNR9c8I2e8y4+kuzDK7u7A6/p+qi6rpYxfcgpJS5Ko4Eu1LxEaQx+D0XqjMZncfvlFchRjDyD1HVGcvQBftOmDOApOCjYWjURlMIcBwPqpRhzuFPa36CojGW6NKqn5L9s4XkI8SNXSBwa0dkKHqsi248gOKVmIfMHhKGG5cPijxDwlPLPa57pVtp6ZuXHck9GjzKVKSjyxli1pIFDluD0x3Vy4rNTw/wPT2+MPZNcsyVTxsQ3sxP6TgOHwCarcXZGcMGlWviujpaqBkNZA2SNvQEJdU4tueeD6Fb+okzH7fZK/iu/Oltjh9G5ge8uyBCw/cO2Nh4QPILWILTT0FDS2+ne4x08TYxnqcdz8eqjL1SGHgeek4bmFtncc64fCSc7jI3BIGMrNuCbpxhVXeHXVy/RI5Q2f6WSdQB8WM7k4z0PVW19r5Zt0pch/apHU0PEUUhaXRchv0dxblrdzqPlnOP8wq9HPLdqGpFVh9RTxc5k+PHgEAtJ7g6ts9Dha5x7a2XyyhsUnLqYHa4ZOu/cHzB7hZJPbr8AaN1I5sWcllPE1jHkdCdIGfmqdyXknT2OGwezy9C78PwF7s1NOOVKCd9uh+YQPatZBdeFJpo2/b0n2rTt7v3h+SYezi0TWmCSapOJZgBoz0Hr6rRadsdSzlyAOa7YgjIK2TW6hfs+VLTYrlc6tsFFRzTPLvusJW2XCFtl4Wt1hdIySpb9rUBu+k46ei94iulwt1xrLfRyspoWvw3kMDHAdtxuq3CS4uc8lzjuSTklcW7qHPgoTTXA1lJ5xSSk/bFJJxBEDVtsp5r4RI6R3QY6KFIytBvNgbSsfLSSRaJAXbqkvYNRGxPfHRWdLapR4FrwAaNk5jc4N6rxsYwiNCfKaYGuIN+5RIR4kixFhZuhc0fRmk+R5D0V89mMceiuk25gLB8G7/58lRY27bKb4Yuz7LXc4NL4XjTKwdSPMeo/qo733RxD1cu7TXWENcHYBx5o96jZUUnNG7cdQoegvFBXRa6erjPm1xDXN+IK9bxDSPbV00T+ayCEyPe3drcdspdFiWwfsdJfJSQ0koYa6hlZI+RgjHWN2kqqxWWWlmJo6p2A7IEo1D9MH9U6g4lp5JHmmkBbINL4zsQVybm0nwhV1yUeGHcpegs7qpsWJagybdMYCZRzu5uDldT1evOU1MzGnU9waB5lHOzXwKhDFyWKgqDsFabTMNcYJ7hZRXcXUNsaQJBJJ2a05T/gri+a6XqISeGM9AFXV4JbFyTXtEpjBfXTbaZ42u+Y2KrEIwCtG9otvNVa4a6PTmnPj9WnH81n0bfCuF1Mfp2yQUPBHuGZ3JIzW5nckglPGMIGWKtvIjdTySeI+Jus4anf+kK4RamuYXDsrDw5Rw0sDmxjv1VijcxwxjGO637mcPjDhFNfTx7OTOqaxyNDhUAtc3qCgVVuMR+zGrPUK+XeIOiD2gagcZUdSUjXFxdjKfTZKcdJrodksKZLRzQAOkjIB7rhrsHYq8VlEyWB0bx22KgqWyte/QX4O4TLLVUtkyaaipaR0ROE9pyHKQ/0/JzIR1Y5wDvRSTuE3xVeGSARd89VFb1lGf1DI2Rfkr5xzf4KascoZQ3l2PEKYY9N1PW2zUVIA4tEkoHU+ac1Nnp4bVXuhI50kTg7Hcqejr4WWqCQyrHYpGFXOoljqXOikc12erThWjhi8fTYuVOftWjr5qr3dmJ3/FR1LVy0VQJIjggr0TrU4DpWOMzVZSWtyHFZ9xHX1L7i+PnPDW7YB2Vvo7iyvtzZmEZx4h5FUW4jm3CZ34kumOSehTexGcWT1JKufs+mMV6px5uCqsUeDhWzgSnMt8pWt/6wrookkfQtRW0zaWCmrAHR1DuUQem47rN7xbnWu4z0h6MOWHzaeiYcc8ViS/wW2kd4KN2XuHd/9lZOM5BPUUVT3mpGOP6rm/qVa7VL2ZBYVKMfbOKS6btISElyZcsNjXhq4lgcyU4YT4SVaWVURAOQqPFUwsHhc0f+pTttwYABq/JpTba3KbaKY9Tixom7lXMeWxRuIOc5CawVM0D8ubkHumTa+JxHiye3hUjAJns2ik0nvyynVN1xzAJz73rR1PcIy057pnT1kQky7Y5yCnLrS+QE4e3P/jTQ2CXXkSuHoWJdrcyOytt6ifbcGGJsjdwd8IVXfhIS3cOTCCgmhmEtRKXxN6sZsnzRw+JdU8FbkjpqB/hhcr7OKlyZHp5yWrwcUlwkw7Dtz38lLUlV9m5hBOobnKbCq4Xp4y7Fa38OP7lcNvnDkZzFSVhPmZOqZ9s1zBoOFM09Mz4xoDRXKWLSdOctPmCqhOCHFa1x7VW+826OSipZYp6bJy4g6mdx8uqyyofDqOHZGCenxXqOlt+pAfYvbHfDtydRumiIJY9ufmh7l5LupOVw2SKBmA06i3JPmUSNzHlxDxtjqnpJvQG3FBIwSVceF547JQVV4nA+zZphB+887AKAs9LFUzaXStbgZyQcfoCn9bYbrXPYfplt5LD4ImzvA+eW9Ubtrjw2BjZD0j5pq4zzPL3SO1OJ65JW03uKaSkthLCQyjY3V+qodn4deySM18lI3D26iyYEac7+R6LUJa2xS+9dDo7NAOAPTZcv9Rt74JV8sKKaKS2F7ZjlpCSt3O4ZzvWynHfQ7/5Xq5OXe0v+jF/goX1q0YLWH09w/wAkhd5D/wAnbtljMKpxVcjTsRunUddj9oTv5A4XUlS0wM0mnVM7pObTOjjceuMDH6I0dbdgRmvBBO+R/QKDbVa/dePzTlkxHU5X2TXCGRTXsnorlcGZLqxzh5BhR2X+rZt45PiFEQV7GABmCe5O6fw3An7yaqJtfJn3dvsPJdKqoGDTDfvnCbOZI85dG1vwcU9ZWvA95OYqxrurQfkly6OPkJL+SFmiY9mmR+PgU0dTwt92SU/DH9FbWugf70bPmF1yqM7uhh/JCumggvpv8lMdGcYa6T54/ooWt4cgqZXSZcxztzpbjdaTJ9VMHjZCED6XZmkhkIcfwZTIVxrexeGOp/kzY8LHl6YxM5w6O2/ggDg+4ZGgHHr/ALrSn3G2PyIoJAR6pq6uhz4NQHk5DO62Hh6LdRU6Hh27UrQ2KOL1ypaG3XxowIoP3ipdtYHe6UZtRtu5Qz6m1+Yg9rRFtt977wQfvFdi3XnvDT/vFSzKuFp8TiUY3GlDcAHKCNtjXhGf7IM2+8/9qm/eKSkpLk0HYnC9QO2z+1H2GWh5HRd81+eq9SXo2YeGWTs7HwR4HvcMlx2KSSHEEHjqJNXVP4auVoyCEkkbMXkN9ZVLRsW/khm71gO0g/JJJLkHF8iF0rCf2xRfpM8mNUzz80kkmQzWHawGLLiSfUrmFzj4ckADskkgMbAukeH+8USPx7uJK9SS5ANscxHTgBeSSvBxq2SSU7F6ciV3mvTI5JJBi0E4dI7zSSSR4jT/2Q==" alt="User Photo">
+      </div>
+      <div id="user-info">
+        <h4>Dhangar Sumedh</h4>
+      </div>
+    </div>
+    <a href="home.html">Home</a>
+    <a href="account.html">Account</a>
+    <a href="home.html">Contact</a>
+    <a href="home.html">Lead</a>
+    <a href="home.html">Deal</a>
+    <a href="home.html">Account Report</a>
+    <a href="home.html">Lead Report</a>
+    <a href="home.html">Dea Report</a>
+    <a href="home.html">Contact E-mail Update</a>
+    <a href="feedform.html" onclick="toggleFeedbackForm()">Feedback   ></a>
+  </div>
+  <div id="content">
+    <div id="content-navbar">
+      <a href="#" title ="Add">&#43; </a>
+      <a href="#" title="Chat">&#128172; </a>
+      <a href="#" title="Notification">&#128276; </a>
+      <div id="login-sign">
+        <a href="#" title="Login">&#128272; </a>
+        <div class="sub-options">
+          <a href="#" title="User">&#128100; User</a>
+          <a href="#" title="Logout">&#128100; Logout</a>
+        </div>
+      </div>
+    </div>
+
+    <button class="create-account-btn" onclick="toggleAddDataForm()">Account List</button>
+
+    <div id="add-data-form">
+      <h3>Create New Data</h3>
+      <form onsubmit="addDataToTable(event)">
+        <label for="account-owner">Account Owner:</label>
+        <input type="text" id="account-owner" name="account-owner" required>
+        <br>
+        <label for="account-name">Account Name:</label>
+        <input type="text" id="account-name" name="account-name" required>
+        <br>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="phone">Phone:</label>
+        <input type="tel" id="phone" name="phone" required>
+        <br>
+        <label for="website">Website:</label>
+        <input type="url" id="website" name="website" required>
+        <br>
+        <label for="industry">Industry:</label>
+        <input type="text" id="industry" name="industry" required>
+        <br>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+
+    <div id="search-tab">
+      <input type="text" id="search-input" placeholder="Search...">
+      <button id="search-btn" onclick="searchTable()">Search</button>
+    </div>
+
+    <div id="add-data-form">
+      <h3>Add Data Form</h3>
+      <form onsubmit="addDataToTable(event)">
+      </form>
+    </div>
+
+    <div id="feedback-form">
+      <h3>Feedback Form</h3>
+      <label for="feedback-message">Your Feedback:</label>
+      <textarea id="feedback-message" placeholder="Enter your feedback"></textarea>
+      <button onclick="submitFeedback()">Submit Feedback</button>
+    </div>
+
+    <table id="data-table">
+      <thead>
+        <tr>
+          <th>Account Owner</th>
+          <th>Account Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+          <th>Website</th>
+          <th>Industry</th>
+          <th>Edit</th>
+          <th>View</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>sumedh dhangar</td>
+          <td>Arm</td>
+          <td>j12@example.com</td>
+          <td>123-456-7890</td>
+          <td>www.arm.com</td>
+          <td>Technology</td>
+          <td><a href="#">Edit</a></td>
+          <td><a href="#">View</a></td>
+        </tr>
+        <tr>
+          <td>sumedh dhangar</td>
+          <td>abc</td>
+          <td>j12@example.com</td>
+          <td>987-654-3210</td>
+          <td>www.abc.com</td>
+          <td>Finance</td>
+          <td><a href="#">Edit</a></td>
+          <td><a href="#">View</a></td>
+        </tr>
+        <tr>
+          <td>sumedh dhangar</td>
+          <td>Arm</td>
+          <td>j12@example.com</td>
+          <td>123-456-7890</td>
+          <td>www.arm.com</td>
+          <td>Technology</td>
+          <td><a href="#">Edit</a></td>
+          <td><a href="#">View</a></td>
+        </tr>
+        <tr>
+          <td>sumedh dhangar</td>
+          <td>abc</td>
+          <td>j12@example.com</td>
+          <td>987-654-3210</td>
+          <td>www.abc.com</td>
+          <td>Finance</td>
+          <td><a href="#">Edit</a></td>
+          <td><a href="#">View</a></td>
+        </tr>
+        <tr>
+          <td>sumedh dhangar</td>
+          <td>Arm</td>
+          <td>j12@example.com</td>
+          <td>123-456-7890</td>
+          <td>www.arm.com</td>
+          <td>Technology</td>
+          <td><a href="#">Edit</a></td>
+          <td><a href="#">View</a></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+  <script>
+    function toggleAddDataForm() {
+      var formData = document.getElementById("add-data-form");
+      formData.style.display = formData.style.display === "none" ? "block" : "none";
+    }
+
+    function addDataToTable(event) {
+      event.preventDefault();
+
+      var accountOwner = document.getElementById("account-owner").value;
+      var accountName = document.getElementById("account-name").value;
+      var email = document.getElementById("email").value;
+      var phone = document.getElementById("phone").value;
+      var website = document.getElementById("website").value;
+      var industry = document.getElementById("industry").value;
+
+      var table = document.getElementById("data-table").getElementsByTagName('tbody')[0];
+      var newRow = table.insertRow(table.rows.length);
+      var cell1 = newRow.insertCell(0);
+      var cell2 = newRow.insertCell(1);
+      var cell3 = newRow.insertCell(2);
+      var cell4 = newRow.insertCell(3);
+      var cell5 = newRow.insertCell(4);
+      var cell6 = newRow.insertCell(5);
+      var cell7 = newRow.insertCell(6);
+      var cell8 = newRow.insertCell(7);
+
+      cell1.innerHTML = accountOwner;
+      cell2.innerHTML = accountName;
+      cell3.innerHTML = email;
+      cell4.innerHTML = phone;
+      cell5.innerHTML = website;
+      cell6.innerHTML = industry;
+      cell7.innerHTML = '<a href="#">Edit</a>';
+      cell8.innerHTML = '<a href="#">View</a>';
+
+      
+      document.getElementById("add-data-form").reset();
+      document.getElementById("add-data-form").style.display = "none";
+    }
+
+  </script>
+  <script>
+    function toggleSidebar() {
+      var sidebar = document.getElementById("sidebar");
+      var content = document.getElementById("content");
+
+      if (sidebar.style.left === "0px") {
+        sidebar.style.left = "-250px";
+        content.style.marginLeft = "0";
+      } else {
+        sidebar.style.left = "0";
+        content.style.marginLeft = "250px";
+      }
+    }
+    
+    function toggleFeedbackForm() {
+      var feedbackForm = document.getElementById("feedback-form");
+      feedbackForm.style.display = feedbackForm.style.display === "none" ? "block" : "none";
+    }
+
+    function submitFeedback() {
+    }
+    function searchTable() {
+      var input, filter, table, tr, td, i, txtValue;
+      input = document.getElementById("search-input");
+      filter = input.value.toUpperCase();
+      table = document.getElementById("data-table");
+      tr = table.getElementsByTagName("tr");
+
+      for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0]; 
+        if (td) {
+          txtValue = td.textContent || td.innerText;
+          if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            tr[i].style.display = "";
+          } else {
+            tr[i].style.display = "none";
+          }
+        }
+      }
+    }
+  </script>
+</body>
+</html>
